@@ -66,6 +66,7 @@ Instructions below.
 8. Create a [Command Line Runner](readme.md#command-line-runner).
 9.  Set up [Logging configuration](readme.md#logging-configuration).
 10. Set up [Application properties](readme.md#application-properties).
+11. Set up [Test application properties](readme.md#test-application-properties).
 
 # Create the database
 
@@ -849,9 +850,3 @@ spring.datasource.password=sa
 **Notes**.
 
 1. These properties ensure that tests will use an in-memory H2 database.
-
-# History
-
-This section: [History](readme.md#history)
-
-- Just added detail from https://www.baeldung.com/spring-boot-console-app
