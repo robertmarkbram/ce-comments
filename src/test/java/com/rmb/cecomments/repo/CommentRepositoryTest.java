@@ -28,7 +28,7 @@ class CommentRepositoryTest {
     * Test saving.
     */
    @Test
-   public void testSaving() {
+   void testSaving() {
       final String text = "abc";
       Comment comment = Comment.builder()
             .text(text)
@@ -44,7 +44,7 @@ class CommentRepositoryTest {
     * Test find all.
     */
    @Test
-   public void testFindAll() {
+   void testFindAll() {
       final String text = "abc";
       commentRepository.save(Comment.builder().text(text).build());
       commentRepository.findAll();
