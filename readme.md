@@ -330,13 +330,14 @@ class CommentRepositoryTest {
 
 **Notes**.
 
-1. The `@DataJpaTest` annotation in this test is **very important**.
+1. This test depends on [Test application properties](readme.md#test-application-properties) to ensure that it uses an in-memory H2 database.
+2. The `@DataJpaTest` annotation in this test is **very important**.
     1. In [Testing in Spring Boot](https://www.baeldung.com/spring-boot-testing), you can see various annotations to test parts of a Spring Boot application, specifically:
         1. `@DataJpaTest`
         2. `@SpringBootTest`
     2. Normally I go straight ahead and use `@SpringBootTest` by default, which will set up the complete Spring Context. But in this example, something very bad goes wrong if I use `@SpringBootTest`:
         1. As Spring scans the class path for all the beans it needs to instantiate for the Spring Context, it picks up **and then runs** the [Spring JPA Command Line Runner](readme.md#spring-jpa-command-line-runner)! This is bad - the command line runner asks displays a command line UI, asks for user input etc. We don't want to do that during this test - all we want is access to the repository and database part of Spring.
-2. If the `@SpringBootApplication` also `implements CommandLineRunner`, the situation is still bad even if I use `@DataJpaTest`:
+3. If the `@SpringBootApplication` also `implements CommandLineRunner`, the situation is still bad even if I use `@DataJpaTest`:
     1. The Spring Context still tries to pick up `@SpringBootApplication` object and because it is only looking for JPA related beans, doesn't instantiate `@Service CommentService`, which generates an error because the `@SpringBootApplication` class now has an unsatisfied dependency for the service object.
     2. So it is better to have two separate classes for `@SpringBootApplication` and the one that `implements CommandLineRunner`.
         1. It's also worth nothing that you can have several `CommandLineRunner`s in a single app. Running a `@SpringBootApplication` will look for all `CommandLineRunner`s from the package tree in which it belongs, so if you need to do several jobs you can do it like that.
@@ -833,6 +834,21 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialec
             1. DDL is Data Definition Language - SQL that creates the schema etc.
             2. DML is Data Manipulation Language - SQL that creates data.
     3. Turn off auto-update with this property instead: `spring.jpa.hibernate.ddl-auto=none`.
+
+# Test application properties
+
+This section: [Test application properties](readme.md#test-application-properties)
+
+```properties
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.url=jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+spring.datasource.username=sa
+spring.datasource.password=sa
+```
+
+**Notes**.
+
+1. These properties ensure that tests will use an in-memory H2 database.
 
 # History
 
