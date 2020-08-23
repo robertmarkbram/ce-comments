@@ -67,6 +67,7 @@ Instructions below.
 9.  Set up [Logging configuration](readme.md#logging-configuration).
 10. Set up [Application properties](readme.md#application-properties).
 11. Set up [Test application properties](readme.md#test-application-properties).
+12. [Build and run the app](readme.md#build-and-run-the-app).
 
 # Create the database
 
@@ -850,3 +851,20 @@ spring.datasource.password=sa
 **Notes**.
 
 1. These properties ensure that tests will use an in-memory H2 database.
+
+# Build and run the app
+
+This section: [Build and run the app](readme.md#build-and-run-the-app)
+
+Compile the project.
+
+```bash
+./mvnw clean package
+```
+
+Run it with either of these.
+
+```bash
+./mvnw spring-boot:run # through maven
+java -jar target/ce-comments-0.0.1-SNAPSHOT.jar # running the jar.
+```
